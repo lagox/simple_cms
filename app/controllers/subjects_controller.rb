@@ -1,4 +1,5 @@
 class SubjectsController < ApplicationController
+  layout 'admin'
   
   def index
     list
@@ -20,6 +21,7 @@ class SubjectsController < ApplicationController
   def create
     @subject = Subject.new(params[:subject])
     if @subject.save
+      flash[:notice] = "Subject created."
       redirect_to(:action => 'list')
     else
       render('new')
@@ -33,9 +35,20 @@ class SubjectsController < ApplicationController
   def update
     @subject = Subject.find(params[:id])
     if @subject.update_attributes(params[:subject])
+      flash[:notice] = "Subject updated."
       redirect_to(:action => 'show', :id => @subject.id)
     else
       render('edit')
     end
+  end
+  
+  def delete
+    @subject = Subject.find(params[:id])
+  end
+  
+  def destroy
+    Subject.find(params[:id]).destroy
+    flash[:notice] = "Subject destroyed."
+    redirect_to(:action => 'list')
   end
 end

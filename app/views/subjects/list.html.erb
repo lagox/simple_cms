@@ -1,3 +1,4 @@
+<% @page_title = "Subjects List" %>
 <div class="subject list">
   <h2>Subjects</h2>
   <%= link_to("Add new Subject", {:action => "new"}, :class => "action new") %>
@@ -18,7 +19,7 @@
       <td class="actions">
         <%= link_to("Show", {:action => 'show', :id => subject.id}, :class => 'action show') %>
         <%= link_to("Edit", {:action => "edit", :id => subject.id}, :class => 'action edit') %>
-        <%= link_to("Delete", "#", :class => "action delete") %>
+        <%= link_to("Delete", {:action => 'delete', :id => subject.id }, :class => "action delete") %>
       </td>
     </tr>
     <% end %>
