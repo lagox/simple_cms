@@ -1,0 +1,31 @@
+<%
+
+text = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\n http://yandex.ru".html_safe
+
+%>
+<h2>word_wrap</h2>
+<%= word_wrap(text, :line_width => 30) %>
+<hr />
+<%= simple_format(text) %>
+<hr />
+<h2>simple_format + word_wrap</h2>
+<%= simple_format(word_wrap(text, :line_width => 30)) %>
+<hr /s>
+<h2>truncate</h2>
+<%= truncate(text, :length => 40, :omission => "...") %>
+<hr />
+<h2>excerpt</h2>
+<%= excerpt(text, 'nisi', :radius => 7, :omission => "...") %>
+<hr />
+<h2>highlight</h2>
+<%= highlight(text, 'culpa') %>
+<hr />
+<%= highlight(text, ['aliqua', 'proident'], :highlighter => '<em>\1</em>') %>
+<hr />
+<h2>auto_link</h2>
+<%= auto_link(text) %>
+<hr /> 
+<h2>cycle</h2>
+<% 5.times do %>
+  <%= cycle('red', 'green', 'blue') %>
+<% end %>
