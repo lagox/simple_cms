@@ -1,12 +1,22 @@
-<%= link_to("<< Back to List", {:action => "list"}, :class => 'back-list') %>
+<% @page_title = "Show Page: #{@page.name}" %>
+
+<%= link_to("<< Back to List", {:action => 'list'}, :class => 'back-link') %>
 
 <div class="page show">
   <h2>Show Page</h2>
-  
-  <table summary="Subject detail view">
+
+  <table summary="Page detail view">
+    <tr>
+      <th>Subject ID</th>
+      <td><%= @page.subject_id %></td>
+    </tr>
     <tr>
       <th>Name</th>
       <td><%= @page.name %></td>
+    </tr>
+    <tr>
+      <th>Permalink</th>
+      <td><%= @page.permalink %></td>
     </tr>
     <tr>
       <th>Position</th>
@@ -14,7 +24,7 @@
     </tr>
     <tr>
       <th>Visible?</th>
-      <td><%= @page.visible ? "true" : "false" %></td>
+      <td><%= @page.visible ? 'true' : 'false' %></td>
     </tr>
     <tr>
       <th>Created</th>

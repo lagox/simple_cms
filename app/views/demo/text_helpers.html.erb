@@ -23,7 +23,7 @@ text = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 <%= highlight(text, ['aliqua', 'proident'], :highlighter => '<em>\1</em>') %>
 <hr />
 <h2>auto_link</h2>
-<%= auto_link(text) %>
+<%= raw(auto_link(text)) %>
 <hr /> 
 <h2>cycle</h2>
 <% 5.times do %>

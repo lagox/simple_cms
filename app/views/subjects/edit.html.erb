@@ -2,7 +2,7 @@
 
 <div class="subject edit">
   <h2>Create Subject</h2>
-  <% form_for(:subject, :url => {:action => 'update', :id => @subject.id}) do |f| -%>
+  <%= form_for(:subject, :url => {:action => 'update', :id => @subject.id}) do |f| -%>
    
     <%= render(:partial => 'form', :locals => {:f => f}) %>
     
