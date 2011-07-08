@@ -1,8 +1,10 @@
-<%= link_to("<< Back to List", {:action => 'list'}, :class => "back-link") %>
+<% @page_title = 'Edit Page: #{@page.name}' %>
+
+<%= link_to("<< Back to List", {:action => 'list', :subject_id => @subject.id}, :class => "back-link") %>
 
 <div class="subject edit">
   <h2>Create Page</h2>
-  <%= form_for(:page, :url => {:action => 'update', :id => @page.id}) do |f| -%>
+  <%= form_for(:page, :url => {:action => 'update', :id => @page.id, :subject_id => @subject.id}) do |f| -%>
     
     <%= render(:partial => 'form', :locals => {:f => f}) %>
     

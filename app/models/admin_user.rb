@@ -41,8 +41,13 @@ class AdminUser < ActiveRecord::Base
   
   scope :named, lambda { |first, last| where(:first_name => first,
     :last_name => last) }
+  scope :sorted, order("admin_users.last_name ASC, admin_users.first_name ASC")
   
   attr_protected :hashed_password, :salt
+  
+  def name
+    "#{first_name} #{last_name}"
+  end
   
   def self.authenticate(username="", password="")
     user = AdminUser.find_by_username(username)
