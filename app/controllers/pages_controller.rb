@@ -9,7 +9,7 @@ class PagesController < ApplicationController
   end
   
   def list
-    @pages = Page.order("pages.position ASC").where(:subject_id => @subject.id)
+    @pages = Page.sorted.where(:subject_id => @subject.id)
   end
   
   def show
@@ -18,17 +18,19 @@ class PagesController < ApplicationController
   
   def new
     @page = Page.new(:subject_id => @subject.id)
-    @page_count = Page.count + 1
+    @page_count = @subject.pages.size + 1
     @subjects = Subject.order("position ASC")
   end
   
   def create
+    new_position = params[:page].delete(:position)
     @page = Page.new(params[:page])
     if @page.save
+      @page.move_to_position(new_position)
       flash[:notice] = "Page created"
       redirect_to(:action => 'list', :subject_id => @page.subject_id)
     else
-      @page_count = Page.count + 1
+      @page_count = @subject.pages.size + 1
       @subjects = Subject.order("position ASC")
       render('new')
     end
@@ -36,17 +38,19 @@ class PagesController < ApplicationController
   
   def edit
     @page = Page.find(params[:id])
-    @page_count = Page.count
+    @page_count = @subject.pages.size
     @subjects = Subject.order("position ASC")
   end
   
   def update
+    new_position = params[:page].delete(:position)
     @page = Page.find(params[:id])
     if @page.update_attributes(params[:page])
+      @page.move_to_position(new_position)
       flash[:notice] = "Page updated."
       redirect_to(:action => 'show', :id => @page.id, :subject_id => @page.subject_id)
     else
-      @page_count = Page.count
+      @page_count = @subject.pages.size
       @subjects = Subject.order("position ASC")
       render('edit')
     end
@@ -57,7 +61,9 @@ class PagesController < ApplicationController
   end
   
   def destroy
-    Page.find(params[:id]).destroy
+    page = Page.find(params[:id])
+    page.move_to_position(nil)
+    page.destroy
     flash[:notice] = "Page destroyed."
     redirect_to(:action => 'list', :subject_id => @subject.id)
   end

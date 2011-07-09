@@ -1,16 +1,10 @@
 SimpleCms::Application.routes.draw do
-  
-  get "admin_users/list"
 
-  get "admin_users/new"
 
-  get "admin_users/edit"
-
-  get "admin_users/delete"
-
-  root :to => "demo#index"
+  root :to => "public#index"
   
   match 'admin', :to => 'access#menu'
+  match 'show/:id', :to => 'public#show'
   #get "demo/index"
   
   # The priority is based upon order of creation:
